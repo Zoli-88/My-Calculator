@@ -18,8 +18,8 @@ html {
 }
 
 button {
-    font: inherit;
-    color: inherit;
+    font-size: 2.2rem;
+    color: var(--white);
     outline: none;
     border: none;
     cursor: pointer;
@@ -31,31 +31,43 @@ button {
 
 body {
     background-color: var(--white-faded);
-    font-size: 2.2rem;
 }
 
 .container {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100dvh;
 }
 
-.calculator {
+.mobile-phone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: var(--black);
-    border-radius: 1.2rem;
     padding: 1rem;
     box-shadow:
     0 0 0 .4rem var(--gray-300),
     0 0 0 .6rem var(--white-faded),
     0 0 0 .8rem var(--gray-100);
+    border-radius: 2rem;
+}
+
+.front-camera {
+    border-radius: 1rem;
+    width: 6.8rem;
+    height: 1rem;
+    margin-bottom: 5rem;
 }
 
 .calculation {
+    font-size: 1.8rem;
     color: var(--gray-100);
-    margin-bottom: 1rem;
+    margin-bottom: .8rem;
 }
 
 .result {
+    font-size: 3.2rem;
     color: var(--white);
     margin-bottom: 1rem;
 }
@@ -63,10 +75,6 @@ body {
 .calculation,
 .result {
     text-align: right;
-}
-
-.buttons {
-    color: var(--white);
 }
 
 .button-row {
