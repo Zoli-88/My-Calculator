@@ -10,15 +10,39 @@ function init() {
   const $sign = document.querySelector("[data-sign]");
 
   let currentOperand = "0";
+  let currentOperator = "";
+  let firstOperand = null;
+  let waitingForSecondOperand = false;
 
+  // Events
   $numbers.forEach(function (num) {
     num.addEventListener("click", function (event) {
       const number = event.target.textContent;
+      if (waitingForSecondOperand) {
+        resetCurrentOperand();
+        waitingForSecondOperand = false;
+      }
       const validOperand = validateOperand(number);
       updateCalcDisplay(validOperand);
     });
   });
 
+  $operators.forEach(function (operator) {
+    operator.addEventListener("click", function (event) {
+      const operator = event.target.textContent;
+      handleOperator(operator);
+      updateCalcDisplay(firstOperand + currentOperator);
+    });
+  });
+
+  $equal.addEventListener("click", function () {
+    const result = calculate(firstOperand, currentOperator, currentOperand);
+    currentOperand = result;
+    updateCalcDisplay(result);
+    displayResult(result);
+  });
+
+  // Functions
   function validateOperand(input) {
     // Avoid multiple leading zeros
     if (currentOperand === "0" && input === "0") {
@@ -42,6 +66,43 @@ function init() {
       currentOperand += input;
       return currentOperand;
     }
+  }
+
+  function handleOperator(operator) {
+    waitingForSecondOperand = true;
+    firstOperand = currentOperand;
+    currentOperator = operator;
+  }
+
+  function resetCurrentOperand() {
+    currentOperand = "0";
+  }
+
+  function calculate(firstOperand, currentOperator, currentOperand) {
+    // Convert string to number
+    const numOne = +firstOperand;
+    const numTwo = +currentOperand;
+
+    // Map operators to functions using actual mathematic operators
+    const operators = {
+      "+": function (a, b) {
+        return a + b;
+      },
+      "-": function (a, b) {
+        return a - b;
+      },
+      "*": function (a, b) {
+        return a * b;
+      },
+      "/": function (a, b) {
+        return a / b;
+      }
+    }
+    return operators[currentOperator](numOne, numTwo);
+  }
+
+  function displayResult(result) {
+    $result.textContent = result;
   }
 
   function updateCalcDisplay(str) {
