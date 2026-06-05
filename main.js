@@ -35,6 +35,8 @@ function init() {
     });
   });
 
+  $percent.addEventListener("click", handlePercent);
+
   $equal.addEventListener("click", function () {
     const result = calculate(firstOperand, currentOperator, currentOperand);
     if (!result && result !== 0) return;
@@ -106,6 +108,13 @@ function init() {
       }
     }
     return operators[currentOperator](numOne, numTwo);
+  }
+
+  function handlePercent() {
+    // Convert current operand string to number, divide it by 100, reassign the value as a string and update calc display
+    currentOperand = +currentOperand / 100;
+    currentOperand = currentOperand.toString();
+    updateCalcDisplay(currentOperand);
   }
 
   function displayResult(result) {
