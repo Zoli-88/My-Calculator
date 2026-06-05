@@ -43,6 +43,8 @@ function init() {
     displayResult(result);
   });
 
+  $delete.addEventListener("click", handleDelete);
+
   $clear.addEventListener("click", clearAll);
 
   // Functions
@@ -112,6 +114,20 @@ function init() {
 
   function updateCalcDisplay(str) {
     $calculation.textContent = str;
+  }
+
+  function handleDelete() {
+    // Backspace / delete shouldn't do anything if the current operand is already 0
+    if (currentOperand === "0") return;
+
+    // Keep removing the last character and reasign the current operand
+    currentOperand = currentOperand.slice(0, -1);
+
+    // If the last remaining character is also deleted, we reset the current operand to initial value "0"
+    if (currentOperand.length === 0) {
+      resetCurrentOperand();
+    }
+    updateCalcDisplay(currentOperand);
   }
 
   function clearAll() {
