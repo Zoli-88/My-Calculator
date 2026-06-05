@@ -43,6 +43,8 @@ function init() {
     displayResult(result);
   });
 
+  $clear.addEventListener("click", clearAll);
+
   // Functions
   function validateOperand(input) {
     // Avoid multiple leading zeros
@@ -110,6 +112,15 @@ function init() {
 
   function updateCalcDisplay(str) {
     $calculation.textContent = str;
+  }
+
+  function clearAll() {
+    currentOperand = "0";
+    currentOperator = "";
+    firstOperand = null;
+    waitingForSecondOperand = false;
+    $calculation.textContent = "0";
+    $result.textContent = "0";
   }
 }
 
