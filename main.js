@@ -37,6 +37,7 @@ function init() {
 
   $equal.addEventListener("click", function () {
     const result = calculate(firstOperand, currentOperator, currentOperand);
+    if (!result && result !== 0) return;
     currentOperand = result;
     updateCalcDisplay(result);
     displayResult(result);
@@ -79,6 +80,8 @@ function init() {
   }
 
   function calculate(firstOperand, currentOperator, currentOperand) {
+    // If any of the operands or operator is missing, return
+    if (!firstOperand || !currentOperator || !currentOperand) return;
     // Convert string to number
     const numOne = +firstOperand;
     const numTwo = +currentOperand;
