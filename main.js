@@ -35,18 +35,10 @@ function init() {
     });
   });
 
+  $equal.addEventListener("click", handleEqual);
   $percent.addEventListener("click", handlePercent);
-
-  $equal.addEventListener("click", function () {
-    const result = calculate(firstOperand, currentOperator, currentOperand);
-    if (!result && result !== 0) return;
-    currentOperand = result;
-    updateCalcDisplay(result);
-    displayResult(result);
-  });
-
+  $sign.addEventListener("click", handleToggleSign);
   $delete.addEventListener("click", handleDelete);
-
   $clear.addEventListener("click", clearAll);
 
   // Functions
@@ -79,6 +71,14 @@ function init() {
     waitingForSecondOperand = true;
     firstOperand = currentOperand;
     currentOperator = operator;
+  }
+
+  function handleToggleSign() {
+    if (currentOperand === "0") return;
+    currentOperand = +currentOperand;
+    currentOperand = currentOperand * -1;
+    currentOperand = currentOperand.toString();
+    updateCalcDisplay(currentOperand);
   }
 
   function resetCurrentOperand() {
@@ -115,6 +115,14 @@ function init() {
     currentOperand = +currentOperand / 100;
     currentOperand = currentOperand.toString();
     updateCalcDisplay(currentOperand);
+  }
+
+  function handleEqual() {
+    const result = calculate(firstOperand, currentOperator, currentOperand);
+    if (!result && result !== 0) return;
+    currentOperand = result;
+    updateCalcDisplay(result);
+    displayResult(result);
   }
 
   function displayResult(result) {
